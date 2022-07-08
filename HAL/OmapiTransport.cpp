@@ -126,8 +126,8 @@ keymaster_error_t OmapiTransport::initialize() {
     if (channel == nullptr) {
         LOG(ERROR) << "Could not open channel null";
         return KM_ERROR_SECURE_HW_COMMUNICATION_FAILED;
-    }  
-    
+    }
+
     return KM_ERROR_OK;
 }
 
@@ -193,9 +193,9 @@ bool OmapiTransport::internalTransmitApdu(
         return false;
     }
 
-    if ((selectResponse.size() < 2) 
-        || ((selectResponse[selectResponse.size() -1] & 0xFF) == 0x00) 
-        || ((selectResponse[selectResponse.size() -2] & 0xFF) == 0x90))
+    if ((selectResponse.size() < 2)
+        || ((selectResponse[selectResponse.size() -1] & 0xFF) != 0x00)
+        || ((selectResponse[selectResponse.size() -2] & 0xFF) != 0x90))
     {
         LOG(ERROR) << "Failed to select the Applet.";
         return false;
